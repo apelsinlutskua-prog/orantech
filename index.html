@@ -11,8 +11,8 @@
         .orange-gradient { background: linear-gradient(135deg, #FF6B00 0%, #FF9E00 100%); }
         #category-menu, #user-panel, #callback-modal, #checkout-page { display: none; }
         .liked { color: #ff4d4d !important; }
-        .banner-shadow { shadow-lg; transition: transform 0.3s; }
-        .banner-shadow:hover { transform: scale(1.01); }
+        .product-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px -15px rgba(255, 107, 0, 0.2); }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -30,11 +30,11 @@
                 </div>
 
                 <div class="flex-1 min-w-[250px]">
-                    <input type="text" id="searchInput" onkeyup="filterGroups()" placeholder="Пошук по всьому гіпермаркету..." class="w-full bg-gray-100 border-none rounded-2xl px-6 py-3 text-sm font-bold focus:ring-2 focus:ring-orange-500 outline-none">
+                    <input type="text" id="searchInput" onkeyup="filterGroups()" placeholder="Пошук товарів (напр. MF3010)..." class="w-full bg-gray-100 border-none rounded-2xl px-6 py-3 text-sm font-bold focus:ring-2 focus:ring-orange-500 outline-none">
                 </div>
 
                 <div class="flex items-center space-x-2">
-                    <button id="cart-btn" onclick="goToCheckout()" class="bg-orange-500 text-white px-5 py-3 rounded-2xl font-black flex items-center space-x-2 shadow-lg hover:scale-105 transition">
+                    <button id="cart-btn" onclick="goToCheckout()" class="bg-orange-500 text-white px-5 py-3 rounded-2xl font-black flex items-center space-x-2 shadow-lg">
                         <span>🛒</span>
                         <span id="cart-count">0</span>
                     </button>
@@ -49,49 +49,58 @@
         <main class="container mx-auto px-4 py-6">
             
             <div id="promo-banner" class="mb-10 group cursor-pointer" onclick="showProduct('Побутова техніка')">
-                <div class="relative overflow-hidden rounded-[30px] shadow-2xl banner-shadow border border-gray-100">
-                    <img src="1244х337 акция с подарком.jpg" alt="Акція KitchenAid" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/1244x337?text=KitchenAid+Акція+Енергія+Весни'">
-                    <div class="absolute inset-0 bg-gradient-to-r from-orange-500/10 to-transparent pointer-events-none"></div>
+                <div class="relative overflow-hidden rounded-[30px] shadow-2xl border border-gray-100">
+                    <img src="1244х337 акция с подарком.jpg" alt="Акція" class="w-full h-auto object-cover" onerror="this.src='https://placehold.co/1244x337?text=KitchenAid+Акція'">
                 </div>
             </div>
 
-            <div id="active-product-area" class="max-w-4xl mx-auto">
+            <div id="active-product-area" class="max-w-5xl mx-auto">
                 <div id="welcome-msg" class="text-center py-20 opacity-20 italic font-black text-xs uppercase tracking-[0.4em]">
                     Оберіть категорію в меню або через пошук
                 </div>
             </div>
         </main>
 
-        <footer class="bg-gray-900 text-white py-10 mt-20">
-            <div class="container mx-auto px-6 text-center italic">
-                <p class="text-sm font-bold">📍 Луцьк, вул. Євгена Сверстюка, 1</p>
-                <p class="text-[10px] text-gray-500 mt-2 uppercase tracking-widest font-black">ФОП Томчик Є.В. — Техніка та сервіс</p>
+        <footer class="bg-gray-900 text-white py-16 mt-20 italic">
+            <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 text-center md:text-left">
+                <div>
+                    <h3 class="text-orange-500 font-900 uppercase text-sm mb-6 tracking-widest">Контакти</h3>
+                    <p class="text-sm font-bold leading-loose">📍 Луцьк, вул. Євгена Сверстюка, 1<br>✉️ apelsin.lutsk.ua@gmail.com<br>📞 095 153 22 58</p>
+                </div>
+                <div>
+                    <h3 class="text-orange-500 font-900 uppercase text-sm mb-6 tracking-widest">Графік роботи</h3>
+                    <p class="text-[11px] font-bold uppercase text-gray-400 leading-loose">Пн-Пт: 9:00 — 18:00<br>Сб: 10:00 — 16:00<br>Нд: Вихідний</p>
+                </div>
+                <div class="flex flex-col items-center md:items-start">
+                    <h3 class="text-orange-500 font-900 uppercase text-sm mb-6 tracking-widest">Про компанію</h3>
+                    <p class="text-[10px] text-gray-400 font-bold uppercase leading-relaxed">ФОП Томчик Є.В. — ваш надійний постачальник техніки у Волинській області з 2023 року.</p>
+                </div>
             </div>
         </footer>
     </div>
 
     <button onclick="toggleCallback()" class="fixed bottom-6 right-6 orange-gradient text-white p-5 rounded-full shadow-2xl z-50 animate-bounce">📞</button>
 
-    <div id="callback-modal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[60] flex items-center justify-center p-6 text-center">
-        <div class="bg-white rounded-[40px] p-8 max-w-sm w-full">
-            <h3 class="text-2xl font-900 uppercase italic mb-6">Вам передзвонити?</h3>
+    <div id="callback-modal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-[60] flex items-center justify-center p-6">
+        <div class="bg-white rounded-[40px] p-8 max-w-sm w-full text-center">
+            <h3 class="text-2xl font-900 uppercase italic mb-6">Передзвонити вам?</h3>
             <input type="tel" id="callPhone" value="+380" class="w-full bg-gray-50 border-2 border-gray-100 rounded-2xl p-4 mb-6 text-center font-black outline-none focus:border-orange-500">
             <button onclick="sendCallback()" class="w-full orange-gradient text-white py-5 rounded-2xl font-black uppercase italic shadow-lg">Чекаю дзвінка</button>
-            <button onclick="toggleCallback()" class="mt-4 text-gray-300 text-[10px] font-black uppercase">Скасувати</button>
+            <button onclick="toggleCallback()" class="mt-4 text-gray-300 text-[10px] font-black uppercase italic">Скасувати</button>
         </div>
     </div>
 
     <div id="checkout-page" class="min-h-screen bg-white p-6">
         <div class="max-w-2xl mx-auto py-10 font-bold italic">
-            <h2 class="text-4xl font-900 uppercase italic mb-10 border-b-8 border-orange-500 inline-block">Ваше замовлення</h2>
-            <div id="checkout-list" class="mb-10 space-y-4 text-lg"></div>
-            <button onclick="confirmOrder()" class="w-full orange-gradient text-white py-6 rounded-3xl font-black uppercase italic shadow-2xl text-xl">Надіслати у Viber 🚀</button>
-            <button onclick="location.reload()" class="w-full mt-6 text-gray-400 uppercase text-xs">← Повернутись до покупок</button>
+            <h2 class="text-4xl font-900 uppercase mb-10 border-b-8 border-orange-500 inline-block">Кошик</h2>
+            <div id="checkout-list" class="mb-10 space-y-4"></div>
+            <button onclick="confirmOrder()" class="w-full orange-gradient text-white py-6 rounded-3xl font-black uppercase italic shadow-2xl">Надіслати у Viber 🚀</button>
+            <button onclick="location.reload()" class="w-full mt-6 text-gray-400 uppercase text-xs">← Назад</button>
         </div>
     </div>
 
     <script>
-        const groups = ["МФП, принтери", "Ліхтарі, лампи", "Телефони, факси", "ББЖ, акумулятори", "Модеми, роутери", "LED", "Витратні HP/Canon", "Пам'ять та SSD", "Материнські плати", "Відеоадаптери", "Монітори", "Мишки, клавіатури", "Папір офісний А4", "Послуги СЕРВІС", "Побутова техніка", "Канцтовари"];
+        const groups = ["МФП, принтери", "Ліхтарі, лампи", "Телефони, факси", "ББЖ, акумулятори", "Модеми, роутери", "LED", "Витратні матеріали", "Пам'ять та SSD", "Материнські плати", "Відеоадаптери", "Монітори", "Мишки, клавіатури", "Папір офісний А4", "Послуги СЕРВІС", "Побутова техніка", "Канцтовари"];
         
         let cart = {};
         let currentQty = 1;
@@ -104,13 +113,10 @@
 
         function filterGroups() {
             const q = document.getElementById('searchInput').value.toLowerCase();
+            if(q.includes('3010')) { showProduct('МФП, принтери'); return; }
             const filtered = groups.filter(g => g.toLowerCase().includes(q));
-            if(q.length > 0) {
-                document.getElementById('category-menu').style.display = 'block';
-                renderMenu(filtered);
-            } else {
-                document.getElementById('category-menu').style.display = 'none';
-            }
+            if(q.length > 0) { document.getElementById('category-menu').style.display = 'block'; renderMenu(filtered); }
+            else { document.getElementById('category-menu').style.display = 'none'; }
         }
 
         function toggleMenu() { 
@@ -130,24 +136,55 @@
             document.getElementById('promo-banner').style.display = 'none';
             currentQty = 1;
             
-            document.getElementById('active-product-area').innerHTML = `
-                <div class="bg-white p-10 rounded-[40px] shadow-2xl border-t-8 border-orange-500 animate-fadeIn italic">
-                    <h3 class="text-4xl font-900 uppercase mb-8 leading-tight">${name}</h3>
-                    
-                    <div class="flex flex-wrap items-center gap-4 mb-10">
-                        <div class="flex items-center bg-gray-100 rounded-3xl p-3 border-2 border-gray-50">
-                            <button onclick="changeQty(-1)" class="w-12 h-12 font-black text-2xl hover:text-orange-500 transition">-</button>
-                            <span id="qty-display" class="w-16 text-center font-black text-2xl">1</span>
-                            <button onclick="changeQty(1)" class="w-12 h-12 font-black text-2xl hover:text-orange-500 transition">+</button>
+            let content = '';
+            
+            // СПЕЦІАЛЬНИЙ ТОВАР ДЛЯ ПРИНТЕРІВ
+            if(name === "МФП, принтери") {
+                content = `
+                <div class="product-card bg-white rounded-[40px] shadow-xl overflow-hidden border border-gray-100 italic">
+                    <div class="md:flex">
+                        <div class="md:w-1/2 p-4 bg-gray-50 flex items-center justify-center">
+                            <img src="https://images.canon-europe.com/oe/products/all-in-one/i-sensys-mf3010/i-sensys-mf3010_main_1_tcm13-861110.jpg" alt="Canon MF3010" class="max-h-64 object-contain">
                         </div>
-                        <button onclick="addToCart('${name}')" class="flex-1 orange-gradient text-white py-6 rounded-3xl font-black uppercase text-xl shadow-xl active:scale-95 transition-all">Додати в кошик</button>
-                    </div>
-                    
-                    <div class="p-6 bg-orange-50 rounded-3xl border border-dashed border-orange-200">
-                        <p class="text-xs font-bold text-orange-800 uppercase">⚡️ Швидка доставка по Луцьку або самовивіз з вул. Сверстюка, 1</p>
+                        <div class="md:w-1/2 p-10">
+                            <span class="text-orange-500 font-900 text-[10px] uppercase tracking-widest">Хіт продажів</span>
+                            <h3 class="text-3xl font-900 uppercase mt-2 mb-4">Canon i-SENSYS MF3010</h3>
+                            <ul class="text-[11px] text-gray-500 space-y-2 mb-6 font-bold uppercase">
+                                <li>• Тип: Лазерне МФП (3 в 1)</li>
+                                <li>• Швидкість: 18 стор/хв</li>
+                                <li>• Картридж: Canon 725 (1600 стор)</li>
+                                <li>• Гарантія: 12 місяців</li>
+                            </ul>
+                            <div class="text-4xl font-900 mb-8 text-gray-900">8 499 ₴</div>
+                            
+                            <div class="flex items-center gap-4">
+                                <div class="flex items-center bg-gray-100 rounded-2xl p-2 border border-gray-200">
+                                    <button onclick="changeQty(-1)" class="w-8 h-8 font-black text-xl">-</button>
+                                    <span id="qty-display" class="w-10 text-center font-black text-xl">1</span>
+                                    <button onclick="changeQty(1)" class="w-8 h-8 font-black text-xl">+</button>
+                                </div>
+                                <button onclick="addToCart('Canon MF3010')" class="flex-1 orange-gradient text-white py-4 rounded-2xl font-black uppercase shadow-lg active:scale-95 transition-all">Купити</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            `;
+                `;
+            } else {
+                content = `
+                <div class="bg-white p-10 rounded-[40px] shadow-2xl border-t-8 border-orange-500 italic">
+                    <h3 class="text-4xl font-900 uppercase mb-8">${name}</h3>
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center bg-gray-100 rounded-2xl p-2">
+                            <button onclick="changeQty(-1)" class="w-8 h-8 font-black text-xl">-</button>
+                            <span id="qty-display" class="w-10 text-center font-black text-xl">1</span>
+                            <button onclick="changeQty(1)" class="w-8 h-8 font-black text-xl">+</button>
+                        </div>
+                        <button onclick="addToCart('${name}')" class="flex-1 orange-gradient text-white py-4 rounded-2xl font-black uppercase shadow-lg">В кошик</button>
+                    </div>
+                </div>`;
+            }
+            
+            document.getElementById('active-product-area').innerHTML = content;
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
@@ -169,22 +206,22 @@
             document.getElementById('main-site').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'block';
             document.getElementById('checkout-list').innerHTML = Object.entries(cart).map(([n,q])=>`
-                <div class="flex justify-between items-center border-b-2 border-gray-100 pb-4">
+                <div class="flex justify-between border-b-2 border-gray-100 pb-4">
                     <span class="uppercase font-900">${n}</span>
-                    <span class="bg-orange-100 text-orange-600 px-4 py-1 rounded-full">${q} шт.</span>
+                    <span class="text-orange-500 font-900">${q} шт.</span>
                 </div>
             `).join('');
             window.scrollTo(0,0);
         }
 
         function confirmOrder() {
-            const txt = '🛒 НОВЕ ЗАМОВЛЕННЯ:\n' + Object.entries(cart).map(([n,q])=>`• ${n}: ${q} шт.`).join('\n');
+            const txt = '🛒 ЗАМОВЛЕННЯ:\n' + Object.entries(cart).map(([n,q])=>`• ${n}: ${q} шт.`).join('\n');
             window.location.href = `viber://forward?text=${encodeURIComponent(txt)}`;
         }
 
         function sendCallback() {
             const p = document.getElementById('callPhone').value;
-            window.location.href = `viber://forward?text=${encodeURIComponent('📞 ПЕРЕДЗВОНІТЬ МЕНІ: ' + p)}`;
+            window.location.href = `viber://forward?text=${encodeURIComponent('📞 ПЕРЕДЗВОНІТЬ: ' + p)}`;
         }
 
         renderMenu();
