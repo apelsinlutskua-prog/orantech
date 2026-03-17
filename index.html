@@ -3,16 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orantech — ФОП Томчик Євгеній Вікторович</title>
+    
+    <title>Orantech — Гіпермаркет техніки | ФОП Томчик Є.В.</title>
+    <meta name="description" content="Магазин техніки Orantech: принтери, ББЖ, монітори, ноутбуки та витратні матеріали. Офіційні рахунки-фактури від ФОП Томчик Євгеній Вікторович.">
+    <meta name="keywords" content="техніка, купити принтер, картриджі, ФОП Томчик, Orantech, безготівковий розрахунок, комп'ютери Луцьк, рахунок-фактура техніка">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
         .orange-gradient { background: linear-gradient(135deg, #FF6B00 0%, #FF9E00 100%); }
         #category-menu { display: none; max-height: 450px; overflow-y: auto; }
         .checkout-page, #invoice-result { display: none; }
-        @media print { .no-print { display: none; } }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
@@ -21,18 +25,17 @@
         <nav class="bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm">
             <div class="container mx-auto px-6 py-4 flex justify-between items-center">
                 <div class="flex items-center space-x-4">
-                    <button onclick="toggleMenu()" class="flex items-center space-x-3 bg-gray-900 text-white px-5 py-3 rounded-2xl hover:bg-orange-600 transition shadow-lg">
-                        <div class="space-y-1.5"><div class="w-6 h-0.5 bg-white"></div><div class="w-6 h-0.5 bg-white"></div><div class="w-6 h-0.5 bg-white"></div></div>
-                        <span class="font-bold text-[10px] uppercase tracking-widest hidden sm:block">Категорії</span>
+                    <button onclick="toggleMenu()" class="bg-gray-900 text-white px-5 py-3 rounded-2xl hover:bg-orange-600 transition shadow-lg flex items-center space-x-2">
+                        <span class="font-bold text-[10px] uppercase tracking-widest">📂 КАТЕГОРІЇ</span>
                     </button>
                     <div class="flex flex-col cursor-pointer" onclick="location.reload()">
                         <span class="text-xl font-900 tracking-tighter uppercase leading-none">ORAN<span class="text-orange-500">TECH</span></span>
-                        <span class="text-[8px] font-bold text-gray-400 uppercase tracking-widest">ФОП Томчик Є.В.</span>
+                        <span class="text-[8px] font-bold text-gray-400 uppercase tracking-widest italic text-right">ФОП Томчик Є.В.</span>
                     </div>
                 </div>
                 <button onclick="goToCheckout()" class="bg-orange-50 text-orange-600 px-6 py-3 rounded-2xl font-black flex items-center space-x-3 hover:bg-orange-100 transition relative">
                     <span class="text-xs uppercase">🛒 Кошик</span>
-                    <span id="cart-count" class="bg-orange-600 text-white text-[10px] px-2 py-0.5 rounded-full shadow-md shadow-orange-200">0</span>
+                    <span id="cart-count" class="bg-orange-600 text-white text-[10px] px-2 py-0.5 rounded-full shadow-md">0</span>
                 </button>
             </div>
             <div id="category-menu" class="bg-white border-b border-gray-200 shadow-2xl">
@@ -41,117 +44,114 @@
         </nav>
 
         <header class="container mx-auto px-6 py-10">
-            <div class="orange-gradient rounded-[60px] p-12 text-center text-white shadow-2xl relative overflow-hidden">
-                <h1 class="text-5xl md:text-7xl font-900 mb-4 tracking-tighter uppercase italic">Ваш надійний <br>постачальник</h1>
-                <p class="text-orange-50 opacity-90 italic">Комплексне забезпечення підприємств технікою</p>
+            <div class="orange-gradient rounded-[50px] p-12 text-center text-white shadow-2xl italic relative overflow-hidden">
+                <h1 class="text-5xl md:text-7xl font-900 mb-4 tracking-tighter uppercase leading-none italic">Офіційна <br>техніка</h1>
+                <p class="text-orange-50 opacity-90 text-sm font-bold uppercase tracking-widest italic">Швидке оформлення рахунків онлайн</p>
             </div>
         </header>
 
         <main class="container mx-auto px-6 pb-32">
-            <div id="welcome-text" class="text-center py-20 text-gray-300 italic font-bold uppercase tracking-widest text-xs">Оберіть групу товарів у меню зверху 📂</div>
+            <div id="welcome-text" class="text-center py-20 text-gray-300 italic font-bold uppercase tracking-widest text-xs">Оберіть групу товарів у меню зверху ☝️</div>
             <div id="active-product-area" class="max-w-4xl mx-auto"></div>
         </main>
     </div>
 
-    <div id="checkout-page" class="min-h-screen bg-white py-16 px-6">
+    <div id="checkout-page" class="min-h-screen bg-white py-16 px-6 checkout-page">
         <div class="max-w-2xl mx-auto">
             <button onclick="backToSite()" class="text-gray-400 font-bold text-[10px] uppercase mb-10 tracking-widest hover:text-orange-500">← Назад до каталогу</button>
             <h2 class="text-4xl font-900 mb-10 tracking-tighter italic uppercase underline decoration-orange-500 underline-offset-8">Ваше замовлення</h2>
 
             <form id="finalOrderForm" class="space-y-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <input type="text" id="custName" placeholder="ПІБ отримувача" required class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-orange-500 outline-none bg-gray-50 font-bold text-sm">
+                    <input type="text" id="custName" placeholder="Ваше Ім'я / Компанія" required class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-orange-500 outline-none bg-gray-50 font-bold text-sm">
                     <input type="tel" id="custPhone" value="+380" required class="w-full border-2 border-gray-100 rounded-2xl p-4 focus:border-orange-500 outline-none bg-gray-50 font-bold text-sm">
                 </div>
 
                 <div class="space-y-4">
-                    <h4 class="text-[10px] font-black uppercase text-orange-500 tracking-[0.2em]">Оплата</h4>
-                    <select id="payMethod" onchange="toggleBizFields()" class="w-full border-2 border-gray-100 rounded-2xl p-4 bg-gray-50 font-bold text-sm outline-none focus:border-orange-500">
-                        <option value="cash">Готівка / Післяплата</option>
-                        <option value="invoice">Рахунок-фактура (Безготівка)</option>
+                    <h4 class="text-[10px] font-black uppercase text-orange-500 tracking-widest">Метод оплати</h4>
+                    <select id="payMethod" onchange="toggleBizFields()" class="w-full border-2 border-gray-100 rounded-2xl p-4 bg-gray-50 font-bold text-sm outline-none focus:border-orange-500 transition">
+                        <option value="cash">Оплата при отриманні</option>
+                        <option value="invoice">Рахунок-фактура (ФОП/ТОВ)</option>
                     </select>
                 </div>
 
                 <div id="biz-fields" class="hidden space-y-4 p-6 bg-orange-50 rounded-[30px] border border-orange-100">
-                    <input type="text" id="bizName" placeholder="Назва ФОП / ТОВ" class="w-full border-2 border-white rounded-xl p-4 focus:border-orange-500 outline-none font-bold text-sm">
                     <input type="text" id="bizCode" placeholder="Код ЄДРПОУ / ІПН" class="w-full border-2 border-white rounded-xl p-4 focus:border-orange-500 outline-none font-bold text-sm">
                 </div>
 
                 <div class="bg-gray-900 text-white p-8 rounded-[40px] shadow-2xl">
-                    <h4 class="text-[10px] font-black uppercase text-gray-500 tracking-widest mb-4">Обрані позиції:</h4>
-                    <ul id="checkout-list" class="space-y-4"></ul>
+                    <h4 class="text-[10px] font-black uppercase text-gray-500 tracking-widest mb-4">Список товарів:</h4>
+                    <ul id="checkout-list" class="space-y-4 font-bold italic"></ul>
                 </div>
 
-                <button type="submit" class="w-full orange-gradient text-white font-black py-6 rounded-3xl shadow-xl uppercase tracking-widest hover:scale-[1.02] transition">Сформувати замовлення</button>
+                <button type="submit" class="w-full orange-gradient text-white font-black py-6 rounded-3xl shadow-xl uppercase tracking-widest hover:scale-[1.02] transition italic">Підтвердити замовлення 🚀</button>
             </form>
         </div>
     </div>
 
     <div id="invoice-result" class="min-h-screen bg-gray-100 py-10 px-4">
-        <div id="pdf-content" class="max-w-3xl mx-auto bg-white p-12 shadow-2xl rounded-sm border-t-8 border-orange-500">
-            <div class="flex justify-between border-b pb-8 mb-8">
+        <div id="pdf-content" class="max-w-3xl mx-auto bg-white p-12 shadow-2xl border-t-8 border-orange-500">
+            <div class="flex justify-between border-b-2 pb-8 mb-8 border-gray-100">
                 <div>
                     <h1 class="text-3xl font-black italic text-orange-600">ORANTECH</h1>
-                    <p class="text-xs font-bold text-gray-600 mt-2">Виконавець: ФОП Томчик Євгеній Вікторович</p>
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Тел: 095 153 22 58</p>
+                    <p class="text-xs font-bold text-gray-700 mt-2">Виконавець: ФОП Томчик Євгеній Вікторович</p>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Контакт: 095 153 22 58</p>
                 </div>
-                <div class="text-right">
+                <div class="text-right italic">
                     <h2 class="text-xl font-black uppercase">Рахунок-фактура</h2>
                     <p class="text-sm font-bold">№ <span id="invNum"></span></p>
                     <p class="text-[10px] text-gray-400 italic" id="invDate"></p>
                 </div>
             </div>
-            <div class="mb-10 text-sm border-l-4 border-gray-100 pl-6">
-                <p class="text-[10px] text-gray-400 uppercase font-black mb-1">Замовник (Платник):</p>
-                <p class="font-bold text-lg" id="resBizName"></p>
+            <div class="mb-10 text-sm">
+                <p class="text-[10px] text-gray-400 uppercase font-black mb-1">Платник:</p>
+                <p class="font-bold text-lg italic" id="resBizName"></p>
                 <p class="text-gray-500 italic">ЄДРПОУ/ІПН: <span id="resBizCode"></span></p>
             </div>
             <table class="w-full text-left mb-12">
                 <thead><tr class="border-b-2 border-gray-900 text-[10px] uppercase text-gray-500">
-                    <th class="py-4">Найменування товару</th>
+                    <th class="py-4">Група товару</th>
                     <th class="py-4 text-center">Кількість</th>
-                    <th class="py-4 text-right">Од. вим.</th>
                 </tr></thead>
-                <tbody id="invoice-items" class="text-sm font-bold"></tbody>
+                <tbody id="invoice-items" class="text-sm font-bold italic"></tbody>
             </table>
-            <div class="text-center pt-10 border-t border-dashed">
-                <p class="text-[10px] font-black uppercase text-gray-400 tracking-[0.3em]">Дякуємо за вибір Orantech!</p>
+            <div class="text-center pt-10 border-t border-dashed border-gray-200">
+                <p class="text-[10px] font-black uppercase text-gray-400 tracking-[0.3em]">Дякуємо за замовлення!</p>
             </div>
         </div>
         
-        <div class="max-w-3xl mx-auto mt-10 flex flex-col sm:flex-row gap-4 no-print">
-            <button onclick="downloadPDF()" class="flex-1 orange-gradient text-white font-black py-5 rounded-2xl shadow-xl uppercase tracking-widest hover:scale-105 transition">⬇️ Скачати рахунок (PDF)</button>
+        <div class="max-w-3xl mx-auto mt-10 flex flex-col sm:flex-row gap-4">
+            <button onclick="downloadPDF()" class="flex-1 orange-gradient text-white font-black py-5 rounded-2xl shadow-xl uppercase tracking-widest italic">⬇️ Скачати рахунок PDF</button>
             <button onclick="location.reload()" class="bg-gray-200 text-gray-600 px-8 py-5 rounded-2xl font-black uppercase text-xs hover:bg-gray-300 transition">На головну</button>
         </div>
     </div>
 
     <script>
         const groups = [
-            "МФП, принтери", "Ліхтарі, настільні лампи, базуки", "Телефони, факси, сканери", 
-            "ББЖ, фільтри, акумулятори до ББЖ", "Модеми, роутери", "LED", 
+            "МФП, принтери", "Ліхтарі, лампи, базуки", "Телефони, факси, сканери", 
+            "ББЖ, фільтри, акумулятори", "Модеми, роутери", "LED", 
             "Витратні Samsung, Sharp", "Витратні Xerox, Epson", "Витратні HP", 
-            "Витратні Canon", "Витратні для матр. принтерів", "Витратні Lexmark, Окі та інші", 
-            "Пам'ять", "Процесори", "Вінчестери HDD,накопичувачі SDD", "Материнські плати", 
+            "Витратні Canon", "Витратні для матр. принтерів", "Витратні Lexmark, OKI", 
+            "Пам'ять", "Процесори", "Вінчестери HDD, SSD", "Материнські плати", 
             "Корпуса, блоки живлення", "Відеоадаптери", "Монітори, телевізори", 
-            "Мишки, клавіатури", "Флешки, карти пам'яті, диски", "Папір офісний", 
-            "Мульти-медіа", "Мережеве пасивне обладнання", "Мережеве активне обладнання", 
+            "Мишки, клавіатури", "Флешки, карти пам'яті", "Папір офісний", 
+            "Мульти-медіа", "Мережеве пасивне", "Мережеве активне", 
             "Інтерфейсні кабелі", "Програмне забезпечення", "Навчальне обладнання", 
-            "Запчастини до принтерів, МФУ", "Кондиціонери, обігрівачі, меблі", 
-            "Ноутбуки, планшети, моноблоки", "Сумки, чохли, футляри", "Послуги СЕРВІС", 
-            "Інструменти, електротовари", "Батарейки, аккумулятори", "Проектори, екрани, кріплення", 
-            "Запчастини до ноутбуків", "Аксесуари до ПК", "РЕАЛІЗАЦІЯ", "Неідинтифікований, різне", 
-            "Охолоджувачі, кулера, термопаста", "Побутова техніка", "Фотокамери, відеокамери", 
-            "Фотопапір, плівки до ламінування", "Посуд", "Аксесуари до телефонів", 
-            "Корзини, сувеніри, іграшки", "Канцтовари", "Lidl, amazon"
+            "Запчастини до принтерів", "Кондиціонери, меблі", 
+            "Ноутбуки, планшети", "Сумки, чохли", "Послуги СЕРВІС", 
+            "Інструменти, електротовари", "Батарейки, акумулятори", "Проектори, кріплення", 
+            "Запчастини до ноутбуків", "Аксесуари до ПК", "РЕАЛІЗАЦІЯ", "Неідентифіковане", 
+            "Кулера, термопаста", "Побутова техніка", "Фотокамери", "Фотопапір", 
+            "Посуд", "Аксесуари до телефонів", "Корзини, іграшки", "Канцтовари", "Lidl, Amazon"
         ];
 
-        let cart = {}; // Об'єкт для збереження { назва: кількість }
+        let cart = {};
         const menuItems = document.getElementById('menu-items');
         const activeArea = document.getElementById('active-product-area');
 
         groups.forEach(name => {
             const btn = document.createElement('button');
-            btn.className = "text-left px-5 py-4 rounded-2xl text-[11px] font-800 uppercase tracking-tight transition-all border border-gray-100 bg-gray-50/50 hover:bg-orange-50";
+            btn.className = "text-left px-5 py-4 rounded-2xl text-[11px] font-800 uppercase tracking-tight border border-gray-100 bg-gray-50/50 hover:bg-orange-50 transition-all";
             btn.innerText = name;
             btn.onclick = () => showProduct(name);
             menuItems.appendChild(btn);
@@ -167,18 +167,15 @@
             document.getElementById('welcome-text').style.display = 'none';
             activeArea.innerHTML = `
                 <div class="bg-white p-12 rounded-[50px] shadow-2xl border border-orange-50 flex flex-col md:flex-row items-center gap-12 animate-fadeIn">
-                    <div class="w-full md:w-1/2 aspect-square bg-gray-50 rounded-[40px] flex items-center justify-center text-[100px] grayscale opacity-20 italic">⚙️</div>
+                    <div class="w-full md:w-1/2 aspect-square bg-gray-50 rounded-[40px] flex items-center justify-center text-[100px] opacity-20 italic">⚙️</div>
                     <div class="w-full md:w-1/2 text-center md:text-left">
-                        <span class="text-orange-500 font-black text-[10px] uppercase tracking-widest mb-4 block">Обрана категорія</span>
                         <h3 class="text-4xl font-900 text-gray-900 mb-8 uppercase tracking-tighter italic leading-none">${name}</h3>
-                        
                         <div class="flex items-center justify-center md:justify-start space-x-4 mb-8">
-                            <button onclick="changeQty('${name}', -1)" class="w-10 h-10 border-2 rounded-xl font-bold hover:bg-gray-100">-</button>
-                            <span id="qty-${name}" class="text-xl font-900">1</span>
-                            <button onclick="changeQty('${name}', 1)" class="w-10 h-10 border-2 rounded-xl font-bold hover:bg-gray-100">+</button>
+                            <button onclick="changeQty('${name}', -1)" class="w-12 h-12 border-2 rounded-xl font-bold hover:bg-gray-100">-</button>
+                            <span id="qty-${name}" class="text-2xl font-900">1</span>
+                            <button onclick="changeQty('${name}', 1)" class="w-12 h-12 border-2 rounded-xl font-bold hover:bg-gray-100">+</button>
                         </div>
-
-                        <button onclick="addToCart('${name}')" class="orange-gradient text-white px-12 py-5 rounded-2xl font-black shadow-xl uppercase tracking-widest hover:scale-105 transition w-full sm:w-auto italic">Додати до замовлення</button>
+                        <button onclick="addToCart('${name}')" class="orange-gradient text-white px-12 py-5 rounded-2xl font-black shadow-xl uppercase tracking-widest italic hover:scale-105 transition">Додати в кошик</button>
                     </div>
                 </div>
             `;
@@ -188,41 +185,28 @@
         function changeQty(name, delta) {
             const el = document.getElementById(`qty-${name}`);
             let val = parseInt(el.innerText) + delta;
-            if (val < 1) val = 1;
-            el.innerText = val;
+            if (val < 1) val = 1; el.innerText = val;
         }
 
         function addToCart(name) {
             const qty = parseInt(document.getElementById(`qty-${name}`).innerText);
-            if (cart[name]) {
-                cart[name] += qty;
-            } else {
-                cart[name] = qty;
-            }
-            updateCartCount();
-            alert(`Додано: ${name} (${qty} шт.)`);
-        }
-
-        function updateCartCount() {
-            const total = Object.values(cart).reduce((a, b) => a + b, 0);
-            document.getElementById('cart-count').innerText = total;
+            cart[name] = (cart[name] || 0) + qty;
+            document.getElementById('cart-count').innerText = Object.values(cart).reduce((a, b) => a + b, 0);
+            alert(`Додано до кошика: ${name}`);
         }
 
         function toggleBizFields() {
-            const fields = document.getElementById('biz-fields');
-            fields.style.display = (document.getElementById('payMethod').value === 'invoice') ? 'block' : 'none';
+            document.getElementById('biz-fields').style.display = (document.getElementById('payMethod').value === 'invoice') ? 'block' : 'none';
         }
 
         function goToCheckout() {
             if(Object.keys(cart).length === 0) return alert("Кошик порожній!");
             document.getElementById('main-site').style.display = 'none';
             document.getElementById('checkout-page').style.display = 'block';
-            
-            const list = document.getElementById('checkout-list');
-            list.innerHTML = Object.entries(cart).map(([name, qty]) => `
-                <li class="flex justify-between items-center bg-white/10 p-4 rounded-xl italic">
-                    <span class="text-sm font-bold">${name}</span>
-                    <span class="text-orange-500 font-black">${qty} шт.</span>
+            document.getElementById('checkout-list').innerHTML = Object.entries(cart).map(([n, q]) => `
+                <li class="flex justify-between items-center border-b border-gray-800 pb-2">
+                    <span class="text-sm">${n}</span>
+                    <span class="text-orange-500">${q} шт.</span>
                 </li>
             `).join('');
             window.scrollTo(0,0);
@@ -235,39 +219,37 @@
 
         document.getElementById('finalOrderForm').onsubmit = (e) => {
             e.preventDefault();
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value;
             const method = document.getElementById('payMethod').value;
+            const edrpou = document.getElementById('bizCode').value || "Фіз. особа";
+            const items = Object.entries(cart).map(([n, q]) => `${n}: ${q} шт.`).join('\n');
+
+            const orderText = `НОВЕ ЗАМОВЛЕННЯ ORANTECH:\nКлієнт: ${name}\nТел: ${phone}\nОплата: ${method}\nЄДРПОУ: ${edrpou}\n\nТОВАРИ:\n${items}`;
             
+            // Відправка у Viber
+            window.location.href = `viber://forward?text=${encodeURIComponent(orderText)}`;
+
             if(method === 'invoice') {
                 document.getElementById('checkout-page').style.display = 'none';
                 document.getElementById('invoice-result').style.display = 'block';
-                document.getElementById('resBizName').innerText = document.getElementById('bizName').value || document.getElementById('custName').value;
-                document.getElementById('resBizCode').innerText = document.getElementById('bizCode').value || "Не вказано";
+                document.getElementById('resBizName').innerText = name;
+                document.getElementById('resBizCode').innerText = edrpou;
                 document.getElementById('invNum').innerText = Math.floor(Math.random() * 9000) + 1000;
                 document.getElementById('invDate').innerText = new Date().toLocaleDateString('uk-UA');
-                
-                document.getElementById('invoice-items').innerHTML = Object.entries(cart).map(([name, qty]) => `
-                    <tr class="border-b italic">
-                        <td class="py-5 text-gray-800">${name}</td>
-                        <td class="py-5 text-center">${qty}</td>
-                        <td class="py-5 text-right text-gray-400">уп./од.</td>
-                    </tr>
+                document.getElementById('invoice-items').innerHTML = Object.entries(cart).map(([n, q]) => `
+                    <tr class="border-b italic"><td class="py-5 text-gray-800">${n}</td><td class="py-5 text-center">${q}</td></tr>
                 `).join('');
-            } else {
-                alert("Замовлення прийнято! ФОП Томчик Є.В. зв'яжеться з вами.");
-                location.reload();
             }
         }
 
         function downloadPDF() {
             const element = document.getElementById('pdf-content');
-            const opt = {
+            html2pdf().from(element).set({
                 margin: 10,
-                filename: `Rakhunok_Orantech_${document.getElementById('invNum').innerText}.pdf`,
-                image: { type: 'jpeg', quality: 0.98 },
-                html2canvas: { scale: 2 },
+                filename: `Orantech_Invoice_${document.getElementById('invNum').innerText}.pdf`,
                 jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-            html2pdf().set(opt).from(element).save();
+            }).save();
         }
 
         window.onclick = (e) => { if (!e.target.closest('nav')) document.getElementById('category-menu').style.display = 'none'; }
