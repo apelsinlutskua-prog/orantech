@@ -8,13 +8,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f9fafb; }
-        .orange-gradient { background: linear-gradient(135deg, #FF6B00 0%, #FF9E00 100%); }
-        .page, #category-menu, #fop-fields, #callback-modal { display: none; }
-        .active-page { display: block; }
-        .italic-black { font-style: italic; font-weight: 900; text-transform: uppercase; }
-        .btn-click:active { transform: scale(0.96); transition: 0.1s; }
-    </style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f9fafb; }
+    .orange-gradient { background: linear-gradient(135deg, #FF6B00 0%, #FF9E00 100%); }
+    .page, #category-menu, #fop-fields, #callback-modal { display: none; }
+    .active-page { display: block; }
+    .italic-black { font-style: italic; font-weight: 900; text-transform: uppercase; }
+    .btn-click:active { transform: scale(0.96); transition: 0.1s; }
+
+    /* ДОДАЄМО КРУЖЕЧОК ТУТ */
+    .status-dot {
+        width: 12px;
+        height: 12px;
+        background-color: #22c55e;
+        border-radius: 50%;
+        display: inline-block;
+        position: relative;
+        margin-right: 12px;
+    }
+    .status-dot::after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        background-color: #22c55e;
+        border-radius: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        animation: pulse-dot 1.5s infinite;
+    }
+    @keyframes pulse-dot {
+        0% { transform: scale(1); opacity: 0.8; }
+        100% { transform: scale(2.5); opacity: 0; }
+    }
+</style>
 </head>
 <body class="text-gray-900 italic-black">
 
