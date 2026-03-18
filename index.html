@@ -3,44 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORANTECH — Луцьк</title>
+    <title>ORANTECH — Гіпермаркет техніки Луцьк</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f9fafb; }
-    .orange-gradient { background: linear-gradient(135deg, #FF6B00 0%, #FF9E00 100%); }
-    .page, #category-menu, #fop-fields, #callback-modal { display: none; }
-    .active-page { display: block; }
-    .italic-black { font-style: italic; font-weight: 900; text-transform: uppercase; }
-    .btn-click:active { transform: scale(0.96); transition: 0.1s; }
-
-    /* ДОДАЄМО КРУЖЕЧОК ТУТ */
-    .status-dot {
-        width: 12px;
-        height: 12px;
-        background-color: #22c55e;
-        border-radius: 50%;
-        display: inline-block;
-        position: relative;
-        margin-right: 12px;
-    }
-    .status-dot::after {
-        content: '';
-        width: 100%;
-        height: 100%;
-        background-color: #22c55e;
-        border-radius: 50%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        animation: pulse-dot 1.5s infinite;
-    }
-    @keyframes pulse-dot {
-        0% { transform: scale(1); opacity: 0.8; }
-        100% { transform: scale(2.5); opacity: 0; }
-    }
-</style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f9fafb; scroll-behavior: smooth; }
+        .orange-gradient { background: linear-gradient(135deg, #FF6B00 0%, #FF9E00 100%); }
+        .page, #category-menu, #fop-fields, #callback-modal { display: none; }
+        .active-page { display: block; }
+        .italic-black { font-style: italic; font-weight: 900; text-transform: uppercase; }
+        .btn-click:active { transform: scale(0.96); transition: 0.1s; }
+        
+        /* АНІМАЦІЯ КРУЖЕЧКА */
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #22c55e;
+            border-radius: 50%;
+            display: inline-block;
+            position: relative;
+            margin-right: 12px;
+        }
+        .status-dot::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background-color: #22c55e;
+            border-radius: 50%;
+            position: absolute;
+            top: 0; left: 0;
+            animation: pulse-dot 1.5s infinite;
+        }
+        @keyframes pulse-dot {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+    </style>
 </head>
 <body class="text-gray-900 italic-black">
 
@@ -55,7 +54,7 @@
                 </div>
             </div>
             <div class="flex-1 max-w-md">
-                <input type="text" id="searchInput" onkeyup="handleSearch(this.value)" placeholder="ПОШУК..." class="w-full bg-gray-100 px-6 py-3 rounded-2xl outline-none focus:ring-2 focus:ring-orange-500 italic-black text-sm border-none">
+                <input type="text" id="searchInput" onkeyup="handleSearch(this.value)" placeholder="ПОШУК ТОВАРУ..." class="w-full bg-gray-100 px-6 py-3 rounded-2xl outline-none focus:ring-2 focus:ring-orange-500 italic-black text-sm border-none">
             </div>
             <button onclick="showPage('cart-page')" class="bg-orange-500 text-white px-6 py-3 rounded-2xl shadow-lg btn-click">
                 🛒 <span id="cart-count">0</span>
@@ -67,9 +66,9 @@
     <div id="callback-modal" class="fixed inset-0 z-[100] bg-black/80 backdrop-blur-md flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-sm rounded-[50px] p-12 text-center relative border-b-[15px] border-orange-500">
             <button onclick="closeCallback()" class="absolute top-8 right-8 text-2xl text-gray-300">✕</button>
-            <h3 class="text-2xl mb-8 uppercase">Ваш номер:</h3>
+            <h3 class="text-2xl mb-8">ВАШ НОМЕР ТЕЛЕФОНУ:</h3>
             <input type="tel" id="cbPhone" placeholder="+380..." class="w-full bg-gray-100 p-6 rounded-3xl mb-8 text-center text-2xl outline-none italic-black border-none">
-            <button onclick="sendCallback()" class="w-full orange-gradient text-white py-6 rounded-3xl btn-click shadow-xl">ЧЕКАЮ ДЗВІНКА</button>
+            <button onclick="sendCallback()" class="w-full orange-gradient text-white py-6 rounded-3xl btn-click shadow-xl">ЧЕКАЮ ДЗВІНКА 🚀</button>
         </div>
     </div>
 
@@ -78,15 +77,15 @@
             <img src="promo.jpg" class="w-full h-auto object-cover" alt="Banner">
         </div>
 
-        <div id="service-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <div class="bg-white p-12 rounded-[50px] shadow-sm text-center border">
-                <div class="text-6xl mb-4">⚡</div><div class="text-xs">ШВИДКИЙ СЕРВІС</div>
+        <div id="service-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 text-center">
+            <div class="bg-white p-10 rounded-[50px] shadow-sm border">
+                <div class="text-5xl mb-4">⚡</div><div class="text-[10px]">ШВИДКИЙ СЕРВІС ТА РЕМОНТ</div>
             </div>
-            <div class="bg-white p-12 rounded-[50px] shadow-sm text-center border-orange-100 border-2">
-                <div class="text-6xl mb-4">🤝</div><div class="text-xs text-orange-600">ДЛЯ ФОП ТА ЮРИДИЧНИХ</div>
+            <div class="bg-white p-10 rounded-[50px] shadow-sm border-orange-100 border-2">
+                <div class="text-5xl mb-4">🤝</div><div class="text-[10px] text-orange-600">ОПЛАТА НА РАХУНОК ФОП</div>
             </div>
-            <div class="bg-white p-12 rounded-[50px] shadow-sm text-center border">
-                <div class="text-6xl mb-4">📍</div><div class="text-xs">ЛУЦЬК, СВЕРСТЮКА, 1</div>
+            <div class="bg-white p-10 rounded-[50px] shadow-sm border">
+                <div class="text-5xl mb-4">📍</div><div class="text-[10px]">ЛУЦЬК, ВУЛ. СВЕРСТЮКА, 1</div>
             </div>
         </div>
         <div id="search-result-area"></div>
@@ -98,10 +97,10 @@
                 <img id="p-img" src="" class="max-h-[450px] drop-shadow-2xl">
             </div>
             <div class="md:w-1/2 p-20 flex flex-col justify-center">
-                <button onclick="goHome()" class="text-orange-500 mb-6 text-[10px]">← НАЗАД</button>
+                <button onclick="goHome()" class="text-orange-500 mb-6 text-[10px]">← НАЗАД ДО КАТАЛОГУ</button>
                 <h1 id="p-title" class="text-6xl mb-6 leading-none"></h1>
                 <div id="p-price" class="text-5xl text-orange-600 mb-10"></div>
-                <p id="p-desc" class="text-gray-500 text-sm mb-12 border-l-4 border-orange-500 pl-6"></p>
+                <p id="p-desc" class="text-gray-500 text-sm mb-12 border-l-4 border-orange-500 pl-6 leading-relaxed"></p>
                 <button onclick="addToCart(currentProduct)" class="w-full orange-gradient text-white py-8 rounded-[35px] text-2xl shadow-xl btn-click">У КОШИК 🛒</button>
             </div>
         </div>
@@ -109,48 +108,65 @@
 
     <div id="cart-page" class="page container mx-auto px-4 py-16">
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-5xl mb-12 italic-black underline decoration-orange-500">ОФОРМЛЕННЯ</h2>
+            <h2 class="text-5xl mb-12 underline decoration-orange-500">ОФОРМЛЕННЯ</h2>
             <div id="cart-items" class="mb-12 text-2xl border-t pt-10"></div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
                 <select id="sMethod" class="p-6 bg-gray-100 rounded-3xl outline-none border-none italic-black"><option value="Самовивіз">САМОВИВІЗ (ЛУЦЬК)</option><option value="Нова Пошта">НОВА ПОШТА</option></select>
                 <select id="pMethod" onchange="toggleFop()" class="p-6 bg-gray-100 rounded-3xl outline-none border-none italic-black"><option value="viber">VIBER / ГOТІВКА</option><option value="fop">РАХУНОК ФОП (PDF)</option></select>
             </div>
             <div id="fop-fields" class="bg-orange-50 p-12 rounded-[50px] mb-12 space-y-6 border-2 border-orange-100">
-                <input type="text" id="fopName" placeholder="НАЗВА ФОП" class="p-6 rounded-3xl w-full border-none italic-black">
-                <input type="text" id="fopCode" placeholder="ЄДРПОУ" class="p-6 rounded-3xl w-full border-none italic-black">
-                <textarea id="fopAddr" placeholder="АДРЕСА" class="p-6 rounded-3xl w-full h-32 border-none italic-black"></textarea>
+                <input type="text" id="fopName" placeholder="НАЗВА ФОП / ОРГАНІЗАЦІЇ" class="p-6 rounded-3xl w-full border-none italic-black">
+                <input type="text" id="fopCode" placeholder="ЄДРПОУ / ІПН" class="p-6 rounded-3xl w-full border-none italic-black">
+                <textarea id="fopAddr" placeholder="ЮРИДИЧНА АДРЕСА ТА ТЕЛЕФОН" class="p-6 rounded-3xl w-full h-32 border-none italic-black"></textarea>
             </div>
-            <button onclick="finishOrder()" class="w-full orange-gradient text-white py-12 rounded-[50px] text-3xl shadow-2xl btn-click">ЗАМОВИТИ</button>
+            <button onclick="finishOrder()" class="w-full orange-gradient text-white py-12 rounded-[50px] text-3xl shadow-2xl btn-click">ОФОРМИТИ ЗАМОВЛЕННЯ</button>
         </div>
     </div>
 
     <div id="pdf-page" class="page py-20 bg-gray-200">
         <div id="pdf-box" class="max-w-4xl mx-auto bg-white p-20 shadow-2xl border-t-[30px] border-orange-500">
-            <div class="flex justify-between border-b-8 border-gray-100 pb-10 mb-10 italic-black">
-                <div><h1 class="text-5xl text-orange-600">ORANTECH</h1><p>ЛУЦЬК, СВЕРСТЮКА, 1</p></div>
+            <div class="flex justify-between border-b-8 border-gray-100 pb-10 mb-10">
+                <div><h1 class="text-5xl text-orange-600 font-black italic">ORANTECH</h1><p>ЛУЦЬК, ВУЛ. СВЕРСТЮКА, 1</p></div>
                 <div class="text-right text-xs">
-                    <p class="text-orange-500">ФОП ТОМЧИК Є.В.</p><p>ІПН: 3371909772</p>
+                    <p class="text-orange-500 font-black">ПРОДАВЕЦЬ:</p>
+                    <p class="text-xl font-black italic">ФОП ТОМЧИК Є.В.</p>
+                    <p>ІПН: 3371909772</p>
                 </div>
             </div>
             <h2 class="text-3xl mb-12 italic-black text-center">РАХУНОК №<span id="invId"></span></h2>
             <div id="pdfClient" class="mb-10 p-10 bg-gray-50 border-l-[20px] border-orange-500"></div>
-            <table class="w-full text-left mb-10 text-xl"><thead class="border-b-4 border-black"><tr><th class="py-4">ТОВАР</th><th class="text-right">К-СТЬ</th></tr></thead><tbody id="pdfTable"></tbody></table>
-            <div class="text-right text-4xl text-orange-500">ЦІНА ДОГОВІРНА</div>
+            <table class="w-full text-left mb-10 text-xl font-black italic">
+                <thead class="border-b-4 border-black"><tr><th class="py-4">ТОВАР</th><th class="text-right">К-СТЬ</th></tr></thead>
+                <tbody id="pdfTable"></tbody>
+            </table>
+            <div class="text-right text-4xl text-orange-500 font-black italic">ЦІНА ДОГОВІРНА</div>
         </div>
         <div class="max-w-4xl mx-auto mt-12 flex gap-10">
-            <button onclick="downloadPDF()" class="flex-1 orange-gradient text-white py-10 rounded-3xl text-2xl btn-click italic-black">СКАЧАТИ PDF</button>
-            <button onclick="goHome()" class="bg-white px-20 py-10 rounded-3xl border-4 btn-click italic-black">ГОЛОВНА</button>
+            <button onclick="downloadPDF()" class="flex-1 orange-gradient text-white py-10 rounded-3xl text-2xl btn-click italic-black">ЗБЕРЕГТИ PDF</button>
+            <button onclick="goHome()" class="bg-white px-20 py-10 rounded-3xl border-4 btn-click italic-black text-xs">ГОЛОВНА</button>
         </div>
     </div>
 
-   <button onclick="openCallback()" class="orange-gradient text-white px-12 py-8 rounded-[40px] text-2xl shadow-2xl btn-click italic-black border-4 border-white flex items-center justify-center mx-auto">
-    <span class="status-dot"></span>
-    ПЕРЕДЗВОНІТЬ МЕНІ 📞
-</button>
+    <div class="container mx-auto px-4 text-center mt-20 mb-20">
+        <button onclick="openCallback()" class="orange-gradient text-white px-12 py-8 rounded-[40px] text-2xl shadow-2xl btn-click italic-black border-4 border-white flex items-center justify-center mx-auto">
+            <span class="status-dot"></span>
+            ПЕРЕДЗВОНІТЬ МЕНІ 📞
+        </button>
+    </div>
 
     <footer class="bg-gray-900 text-white py-20 text-center italic-black">
-        <div class="text-3xl mb-6">ORAN<span class="text-orange-500">TECH</span></div>
-        <p class="text-[9px] text-gray-700 tracking-[0.5em]">ЛУЦЬК • 2026 • © ORANTECH</p>
+        <div class="container mx-auto px-4">
+            <div class="text-3xl mb-10 tracking-tighter">ORAN<span class="text-orange-500">TECH</span></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 text-[9px] text-gray-500 tracking-widest mb-16">
+                <div>МІСТО: ЛУЦЬК, СВЕРСТЮКА, 1</div>
+                <div>ФОП ТОМЧИК Є.В. | ІПН 3371909772</div>
+                <div class="flex flex-col gap-2">
+                    <a href="#" class="hover:text-white underline">ПОЛІТИКА КОНФІДЕНЦІЙНОСТІ</a>
+                    <a href="#" class="hover:text-white underline">ПУБЛІЧНА ОФЕРТА</a>
+                </div>
+            </div>
+            <p class="text-[8px] text-gray-800 tracking-[0.6em]">© 2026 ORANTECH LUTSK — ГІПЕРМАРКЕТ ВАШОГО ОФІСУ</p>
+        </div>
     </footer>
 
     <script>
@@ -159,7 +175,7 @@
             "Canon MF3010": {
                 img: "https://images.canon-europe.com/oe/products/all-in-one/i-sensys-mf3010/i-sensys-mf3010_main_1_tcm13-861110.jpg",
                 price: "8 499 ₴",
-                desc: "МФП ДЛЯ ОФІСУ ТА ФОП. ДРУК, КОПІР, СКАНЕР. НАДІЙНІСТЬ."
+                desc: "МФП ДЛЯ ОФІСУ ТА ФОП. ДРУК, КОПІР, СКАНЕР. ПРАЦЮЄ БЕЗ ВІДМОВ."
             }
         };
         let cart = {}; let currentProduct = "";
@@ -174,34 +190,30 @@
             document.getElementById('main-banner').style.display = 'block';
             document.getElementById('service-grid').style.display = 'grid';
             document.getElementById('search-result-area').innerHTML = '';
+            document.getElementById('searchInput').value = '';
             showPage('home-page');
         }
         function toggleMenu() {
             const m = document.getElementById('category-menu');
             m.style.display = (m.style.display === 'grid') ? 'none' : 'grid';
-            m.innerHTML = cats.map(c => `<button onclick="openProduct('${c}')" class="p-6 bg-gray-50 rounded-2xl hover:bg-orange-100 text-[10px] text-left italic-black">${c}</button>`).join('');
+            m.innerHTML = cats.map(c => `<button onclick="openProduct('${c}')" class="p-6 bg-gray-50 rounded-2xl hover:bg-orange-100 text-[10px] text-left italic-black transition">${c}</button>`).join('');
         }
+        
         function handleSearch(q) {
-    if(!q) { goHome(); return; }
-    q = q.toLowerCase();
+            if(!q) { goHome(); return; }
+            q = q.toLowerCase();
+            if(q.includes('3010') || q.includes('canon') || q.includes('принтер')) { openProduct('Canon MF3010'); return; }
+            
+            document.getElementById('main-banner').style.display = 'none';
+            document.getElementById('service-grid').style.display = 'none';
+            document.getElementById('search-result-area').innerHTML = `
+                <div class="bg-white p-20 rounded-[50px] shadow-xl text-center border-t-[20px] border-gray-200">
+                    <h3 class="text-xl mb-4 italic-black text-gray-400">ТОВАРУ "${q.toUpperCase()}" НЕМАЄ В БАЗІ</h3>
+                    <button onclick="openCallback()" class="orange-gradient text-white px-8 py-4 rounded-3xl text-sm btn-click italic-black shadow-lg">ЗАПИТАТИ НАЯВНІСТЬ 📞</button>
+                    <button onclick="goHome()" class="block mx-auto mt-6 text-[10px] underline text-gray-300">НА ГОЛОВНУ</button>
+                </div>`;
+        }
 
-    // 1. Перевірка на конкретний товар
-    if(q.includes('3010') || q.includes('canon') || q.includes('принтер')) { 
-        openProduct('Canon MF3010'); 
-        return; 
-    }
-    
-    // 2. Якщо нічого не знайдено - показуємо адекватне повідомлення
-    document.getElementById('main-banner').style.display = 'none';
-    document.getElementById('service-grid').style.display = 'none';
-    document.getElementById('search-result-area').innerHTML = `
-        <div class="bg-white p-20 rounded-[50px] shadow-xl text-center border-t-[20px] border-gray-200">
-            <h3 class="text-2xl mb-4 italic-black text-gray-400">ТОВАРУ "${q.toUpperCase()}" НЕ ЗНАЙДЕНО</h3>
-            <p class="mb-10 text-xs italic-black text-gray-400">Спробуйте іншу назву або зателефонуйте нам</p>
-            <button onclick="openCallback()" class="orange-gradient text-white px-10 py-5 rounded-3xl text-sm btn-click italic-black">ЗАПИТАТИ НАЯВНІСТЬ 📞</button>
-            <button onclick="goHome()" class="block mx-auto mt-6 text-[10px] underline">НА ГОЛОВНУ</button>
-        </div>`;
-}
         function openProduct(name) {
             if(name === "Принтери") name = "Canon MF3010";
             if(products[name]) {
@@ -213,30 +225,35 @@
                 currentProduct = name; showPage('product-page');
             } else { handleSearch(name); }
         }
+
         function addToCart(name) {
             cart[name] = (cart[name] || 0) + 1;
             document.getElementById('cart-count').innerText = Object.values(cart).reduce((a,b)=>a+b, 0);
-            alert('ТОВАР В КОШИКУ!');
+            alert('ТОВАР ДОДАНО!');
         }
+
         function toggleFop() { document.getElementById('fop-fields').style.display = (document.getElementById('pMethod').value === 'fop') ? 'block' : 'none'; }
+        
         function finishOrder() {
             const mode = document.getElementById('pMethod').value;
+            if(Object.keys(cart).length === 0) { alert('КОШИК ПОРОЖНІЙ!'); return; }
             if(mode === 'fop') {
                 document.getElementById('invId').innerText = Math.floor(Math.random()*9000)+1000;
-                document.getElementById('pdfClient').innerHTML = `<p class="text-2xl italic-black">${document.getElementById('fopName').value || 'КЛІЄНТ'}</p><p>ЄДРПОУ: ${document.getElementById('fopCode').value || '-'}</p>`;
-                document.getElementById('pdfTable').innerHTML = Object.entries(cart).map(([n,q]) => `<tr class="border-b"><td class="py-6 italic-black">${n}</td><td class="text-right italic-black">${q} ШТ.</td></tr>`).join('');
+                document.getElementById('pdfClient').innerHTML = `<p class="text-2xl italic-black uppercase">${document.getElementById('fopName').value || 'ПРИВАТНИЙ ЗАМОВНИК'}</p><p>ЄДРПОУ: ${document.getElementById('fopCode').value || '-'}</p><p class="text-[10px] text-gray-400 mt-4 italic-black">${document.getElementById('fopAddr').value || ''}</p>`;
+                document.getElementById('pdfTable').innerHTML = Object.entries(cart).map(([n,q]) => `<tr class="border-b"><td class="py-6 italic-black uppercase">${n}</td><td class="text-right italic-black">${q} ШТ.</td></tr>`).join('');
                 showPage('pdf-page');
             } else {
-                const text = `ЗАМОВЛЕННЯ:\n${Object.entries(cart).map(([n,q])=>`• ${n} (${q})`).join('\n')}`;
+                const text = `НОВЕ ЗАМОВЛЕННЯ ORANTECH:\n${Object.entries(cart).map(([n,q])=>`• ${n} (${q} шт)`).join('\n')}\nДОСТАВКА: ${document.getElementById('sMethod').value}`;
                 window.location.href = `viber://forward?text=${encodeURIComponent(text)}`;
             }
         }
-        function downloadPDF() { html2pdf().from(document.getElementById('pdf-box')).save('ORANTECH_RAHUNOK.pdf'); }
+
+        function downloadPDF() { html2pdf().from(document.getElementById('pdf-box')).set({ margin: 0.5, filename: 'RAHUNOK_ORANTECH.pdf', html2canvas: { scale: 2 } }).save(); }
         function openCallback() { document.getElementById('callback-modal').style.display = 'flex'; }
         function closeCallback() { document.getElementById('callback-modal').style.display = 'none'; }
         function sendCallback() {
             const p = document.getElementById('cbPhone').value;
-            if(p) window.location.href = `viber://forward?text=${encodeURIComponent('ПЕРЕДЗВОНІТЬ МЕНІ: ' + p)}`;
+            if(p) window.location.href = `viber://forward?text=${encodeURIComponent('КЛІЄНТ ПРОСИТЬ ПЕРЕДЗВОНИТИ: ' + p)}`;
             closeCallback();
         }
     </script>
