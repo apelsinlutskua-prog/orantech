@@ -157,16 +157,26 @@
             m.innerHTML = cats.map(c => `<button onclick="openProduct('${c}')" class="p-6 bg-gray-50 rounded-2xl hover:bg-orange-100 text-[10px] text-left italic-black">${c}</button>`).join('');
         }
         function handleSearch(q) {
-            if(!q) { goHome(); return; }
-            q = q.toLowerCase();
-            if(q.includes('3010') || q.includes('canon')) { openProduct('Canon MF3010'); return; }
-            document.getElementById('main-banner').style.display = 'none';
-            document.getElementById('service-grid').style.display = 'none';
-            document.getElementById('search-result-area').innerHTML = `<div class="bg-white p-20 rounded-[50px] shadow-xl text-center border-t-[20px] border-orange-500">
-                <h3 class="text-4xl mb-6 italic-black">${q}</h3><p class="mb-10 text-xs italic-black text-gray-400">Під замовлення (1 день)</p>
-                <button onclick="addToCart('${q.toUpperCase()}')" class="orange-gradient text-white px-16 py-8 rounded-[40px] text-xl btn-click italic-black">У КОШИК 🚀</button>
-            </div>`;
-        }
+    if(!q) { goHome(); return; }
+    q = q.toLowerCase();
+
+    // 1. Перевірка на конкретний товар
+    if(q.includes('3010') || q.includes('canon') || q.includes('принтер')) { 
+        openProduct('Canon MF3010'); 
+        return; 
+    }
+    
+    // 2. Якщо нічого не знайдено - показуємо адекватне повідомлення
+    document.getElementById('main-banner').style.display = 'none';
+    document.getElementById('service-grid').style.display = 'none';
+    document.getElementById('search-result-area').innerHTML = `
+        <div class="bg-white p-20 rounded-[50px] shadow-xl text-center border-t-[20px] border-gray-200">
+            <h3 class="text-2xl mb-4 italic-black text-gray-400">ТОВАРУ "${q.toUpperCase()}" НЕ ЗНАЙДЕНО</h3>
+            <p class="mb-10 text-xs italic-black text-gray-400">Спробуйте іншу назву або зателефонуйте нам</p>
+            <button onclick="openCallback()" class="orange-gradient text-white px-10 py-5 rounded-3xl text-sm btn-click italic-black">ЗАПИТАТИ НАЯВНІСТЬ 📞</button>
+            <button onclick="goHome()" class="block mx-auto mt-6 text-[10px] underline">НА ГОЛОВНУ</button>
+        </div>`;
+}
         function openProduct(name) {
             if(name === "Принтери") name = "Canon MF3010";
             if(products[name]) {
